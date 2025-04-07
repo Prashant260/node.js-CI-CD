@@ -1,108 +1,85 @@
-📦 Deploying the Application to Docker Hub
-📝 Project Overview
-This project demonstrates how to containerize an application using Docker and push the Docker image to Docker Hub. By doing this, the application becomes easily portable and can be deployed across multiple environments with minimal configuration.
+# Node.js Application with Docker CI/CD
 
-🚀 Prerequisites
-Ensure the following tools are installed and configured on your system:
+This project is a simple **Node.js** application configured with **Docker** and automated **CI/CD using GitHub Actions**. It is part of the internship tasks for Elevate Labs.
 
-Docker installed and running
+## 📁 Project Structure
 
-Docker Hub account
+Elevate_labs_internship/ ├── .github/ │ └── workflows/ │ └── main.yml # GitHub Actions workflow file ├── nodejsApp/ │ ├── Dockerfile # Dockerfile for Node.js app │ ├── index.js # Main server file │ ├── package.json # App metadata and dependencies │ └── ... # Other app files
 
-Git installed
-
-Application source code (e.g., a Spring Boot app)
-
-Internet connection
-
-📁 Project Structure
-css
+yaml
 Copy
 Edit
-project-root/
-├── Dockerfile
-├── .dockerignore
-├── src/
-│   └── ... (application source code)
-├── pom.xml / requirements.txt / package.json (based on your stack)
-└── README.md
-🛠️ Step-by-Step Guide
-1. Clone the Repository
-bash
-Copy
-Edit
-git clone <your-repo-url>
-cd <project-folder>
-2. Write the Dockerfile
-Example for a Java Spring Boot app:
 
-Dockerfile
-Copy
-Edit
-# Start from OpenJDK base image
-FROM openjdk:17-jdk-slim
+---
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
+## 🚀 Features
 
-# Copy the jar file into the container
-COPY target/*.jar app.jar
+- Node.js web app
+- Dockerized for easy deployment
+- GitHub Actions for automated build and push to Docker Hub
+- Environment variables managed via GitHub Secrets
 
-# Run the jar file
-ENTRYPOINT ["java","-jar","/app.jar"]
-Replace target/*.jar with your actual .jar path if different.
+---
 
-3. Build the Docker Image
-bash
-Copy
-Edit
-docker build -t <your-dockerhub-username>/<your-app-name>:<tag> .
-Example:
+## 🖥️ Run Locally
+
+### Prerequisites
+
+- Node.js and npm
+- Docker (for containerization)
+
+### Steps
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/Prashant260/Elevate_labs_internship.git
+   cd Elevate_labs_internship/nodejsApp
+Install dependencies:
 
 bash
 Copy
 Edit
-docker build -t prashantch/springboot-app:latest .
-4. Login to Docker Hub
-bash
-Copy
-Edit
-docker login
-Enter your Docker Hub username and password when prompted.
-
-5. Push the Image to Docker Hub
-bash
-Copy
-Edit
-docker push <your-dockerhub-username>/<your-app-name>:<tag>
-Example:
+npm install
+Start the app:
 
 bash
 Copy
 Edit
-docker push prashantch/springboot-app:latest
-6. Verify on Docker Hub
-Go to your Docker Hub profile and confirm that your image is successfully listed under "Repositories".
-
-✅ How to Run the Image from Docker Hub
-To run the image on any system with Docker:
-
+npm start
+🐳 Docker Setup
+Build Docker Image
 bash
 Copy
 Edit
-docker pull <your-dockerhub-username>/<your-app-name>:<tag>
-docker run -p 8080:8080 <your-dockerhub-username>/<your-app-name>:<tag>
-📌 Notes
-Make sure the app exposes the correct port in your code.
+docker build -t yourusername/nodejsapp:latest .
+Run Docker Container
+bash
+Copy
+Edit
+docker run -p 3000:3000 yourusername/nodejsapp:latest
+The app will be available at http://localhost:3000.
 
-Use .dockerignore to exclude unnecessary files from the image.
+🔁 GitHub Actions CI/CD
+Trigger
+The workflow is triggered on every push to the main branch.
 
-You can tag with versions like :v1.0, :stable, or use :latest.
+Actions Workflow
+Checkout Code
 
-📚 Resources
-Docker Docs
+Log in to Docker Hub (uses secrets)
 
-Dockerfile Reference
+Build Docker image
 
-Docker Hub
+Push to Docker Hub
 
+Workflow File: .github/workflows/main.yml
+
+🔐 Secrets Setup
+You need to add the following repository secrets in GitHub:
+
+DOCKER_USERNAME → Your Docker Hub username
+
+DOCKER_PASSWORD → Your Docker Hub password or access token
+
+🧑‍💻 Author
+Prashant Choudhary
