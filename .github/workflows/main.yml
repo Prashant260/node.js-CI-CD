@@ -1,3 +1,22 @@
-name: CI/CD Pioeline 
+name: CI/CD Pipeline 
+on:
+  push:
+    branches:
+      - main  
 
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: echo "#Dockerhub-2604" | docker login -u "$prashant260" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t /nodejsApp:latest .
+
+      - name: Push Docker image
+        run: docker push "${{ Prashant260 }}"/nodejsApp:latest
